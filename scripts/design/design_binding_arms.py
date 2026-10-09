@@ -12,6 +12,8 @@ Default buffer / concentrations:
   [Na+] = 150 mM, [Mg2+] = 10 mM, Ct = 1 µM (dnac1 = dnac2 = Ct/2).
 
 Writes one CSV per cleavage site per input dataset.
+The CSV column ``cleavage_pos`` is the 1-based nucleotide number of unpaired R
+(the internal index used to slice the RNA is 0-based).
 """
 
 from __future__ import annotations
@@ -271,7 +273,7 @@ def design_for_core(
         "catalytic_core": core,
         "target_id": site.target_id,
         "site_id": site.site_id,
-        "cleavage_pos": site.cleavage_pos,
+        "cleavage_pos": site.cleavage_pos + 1,  # 1-based nucleotide of unpaired R
         "cleavage_dinucleotide": site.cleavage_dinucleotide,
         "left_arm": left_arm,
         "right_arm": right_arm,
@@ -447,7 +449,7 @@ def main() -> None:
     print("Cleavage sites (10-23: unpaired R, paired Y in 3' flank):")
     for s in sites:
         print(
-            f"  {s.site_id}: RY={s.cleavage_dinucleotide} pos={s.cleavage_pos} "
+            f"  {s.site_id}: RY={s.cleavage_dinucleotide} pos={s.cleavage_pos + 1} "
             f"unpaired={s.unpaired_purine} paired_Y={s.paired_pyrimidine} "
             f"flank5={len(s.flank_5p)} flank3={len(s.flank_3p)}"
         )
