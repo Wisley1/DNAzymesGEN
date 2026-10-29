@@ -95,14 +95,4 @@ MVP, уже реализованный и описанный в репозито
 
 Бейзлайн:
 
-```mermaid
-flowchart LR
-  subgraph sources [Откуда пул 250k]
-    rnd["Бейзлайн: случайная ДНК, без модели"]
-  end
-
-  rnd --> pool["250k ядер"]
-  pool --> lgbm["LightGBM, порог 0.95"]
-  lgbm --> lev["Levenshtein Q1"]
-  lev --> ss["Вторичная структура"]
-```
+![Бейзлайн: случайная ДНК, LightGBM, Levenshtein Q1, вторичная структура](assets/baseline_diagram.jpg)
